@@ -1,0 +1,6 @@
+run="npm run dev"
+entrypoint="src/App.jsx"
+
+[[ports]]
+localPort = 5173
+externalPort = 80
