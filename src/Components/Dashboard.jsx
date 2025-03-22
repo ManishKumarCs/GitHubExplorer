@@ -11,29 +11,8 @@ function Dashboard() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (search.trim()) {
-      fetchSuggestions();
-    } else {
-      setSuggestions([]);
-    }
-  }, [search]);
-
-  async function fetchSuggestions() {
-    try {
-      const response = await axios.get(
-        `https://api.github.com/search/users?q=${search}&per_page=5`
-      );
-      setSuggestions(response.data.items);
-      setShowSuggestions(true);
-    } catch (err) {
-      console.error("Error fetching suggestions", err);
-    }
-  }
 
   function handleSearch(event) {
     setSearch(event.target.value);
@@ -65,7 +44,7 @@ function Dashboard() {
 
   function handleClick() {
     fetchUsers(1);
-    setShowSuggestions(false); // Hide suggestions after search
+    setShowSuggestions(false); 
   }
 
   function handleClearSearch() {
@@ -83,10 +62,10 @@ function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 transition">
-      <div className="flex flex-col justify-center items-center p-8 max-w-6xl mx-auto">
+      <div className="flex flex-col justify-center items-center p-4 max-w-6xl mx-auto">
         <img
           src="https://logosmarcas.net/wp-content/uploads/2020/12/GitHub-Logo.png"
-          className="w-40 lg:w-48"
+          className="w-40 lg:w-44"
           alt="GitHub Logo"
         />
 
@@ -111,21 +90,7 @@ function Dashboard() {
             Clear
           </button>
 
-          {showSuggestions && search && (
-            <div className="absolute top-full left-0 right-0 bg-white border mt-2 shadow-lg z-10">
-              <ul className="p-2 max-h-60 overflow-y-auto">
-                {suggestions.map((user) => (
-                  <li
-                    key={user.id}
-                    className="cursor-pointer p-2 hover:bg-gray-200"
-                    onClick={() => setSearch(user.login)}
-                  >
-                    {user.login}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          
         </div>
 
         {error && <div className="text-red-500 font-semibold mt-4">{error}</div>}
@@ -134,7 +99,6 @@ function Dashboard() {
           {data && data.map((user) => <Card key={user.id} data={user} />)}
         </div>
 
-        {/* Pagination Controls */}
         {data && (
           <div className="flex gap-4 mt-6">
             <button
@@ -157,28 +121,25 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-16 py-2">
-        {/* Compare Profiles Card */}
-        <div className="p-6 border rounded-lg shadow-md w-80 text-center bg-gray-100">
+        <div className="p-6 border border-black rounded-lg shadow-md w-80 text-center bg-gray-100">
           <img src="https://cdn-icons-png.flaticon.com/512/3178/3178286.png" className="w-16 mx-auto mb-4" alt="Compare Icon" />
           <h2 className="text-xl font-bold">Compare GitHub Profiles</h2>
           <p className="text-gray-600 mt-2">Compare two GitHub users based on followers, repositories, and contributions.</p>
-          <button onClick={() => navigate("/compare")} className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+          <button onClick={() => navigate("/compare")} className="text-black border border-black rounded hover:text-white hover:border-none px-4 py-2 mt-4 hover:bg-gray-500 transition w-full">
             Compare Now
           </button>
         </div>
 
-        {/* Top Profiles Card */}
-        <div className="p-6 border rounded-lg shadow-md w-80 text-center bg-gray-100">
+        <div className="p-6 border border-black rounded-lg shadow-md w-80 text-center bg-gray-100">
           <img src="https://cdn-icons-png.flaticon.com/512/3178/3178281.png" className="w-16 mx-auto mb-4" alt="Top Profiles Icon" />
-          <h2 className="text-xl font-bold">Top GitHub Profiles</h2>
+          <h2 className="text-xl font-bold">Top GitHub User Profiles Worldwide</h2>
           <p className="text-gray-600 mt-2">Explore the most followed GitHub users worldwide or filter by country.</p>
-          <button onClick={() => navigate("/top-profiles")} className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+          <button onClick={() => navigate("/top-profiles")} className="text-black border border-black rounded hover:text-white hover:border-none px-4 py-2 mt-4 hover:bg-gray-500 transition w-full">
             View Profiles
           </button>
         </div>
 
-        {/* Other Cards */}
-        <div className="p-6 border rounded-lg shadow-md w-80 text-center bg-gray-100">
+        <div className="p-6 border border-black rounded-lg shadow-md w-80 text-center bg-gray-100">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png"
             className="w-16 mx-auto mb-4"
@@ -188,23 +149,23 @@ function Dashboard() {
           <p className="text-gray-600 mt-2">Discover developers using specific programming languages.</p>
           <button
             onClick={() => navigate("/find-github-users")}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-600 transition"
+            className="text-black border border-black rounded hover:text-white hover:border-none px-4 py-2 mt-4 hover:bg-gray-500 transition w-full"
           >
             Find Users
           </button>
         </div>
 
-        <div className="p-6 border rounded-lg shadow-md w-80 text-center bg-gray-100">
+        <div className="p-6 border border-black rounded-lg shadow-md w-80 text-center bg-gray-100">
           <img
             src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
             className="w-16 mx-auto mb-4"
             alt="Open Source Icon"
           />
-          <h2 className="text-xl font-bold">Open Source Collaboration</h2>
+          <h2 className="text-xl font-bold">Collaborate on Open Source Projects</h2>
           <p className="text-gray-600 mt-2">Find open-source projects that match your skills and interests.</p>
           <button
             onClick={() => navigate("/open-source-match")}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-purple-600 transition"
+            className="text-black border border-black rounded hover:text-white hover:border-none px-4 py-2 mt-4 hover:bg-gray-500 transition w-full"
           >
             Discover Projects
           </button>

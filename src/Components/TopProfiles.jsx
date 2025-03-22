@@ -39,7 +39,6 @@ function TopProfiles() {
     fetchProfiles();
   }, []);
 
-  // Filter profiles based on the selected country
   function handleFilterChange(event) {
     const country = event.target.value;
     setSelectedCountry(country);
@@ -59,8 +58,6 @@ function TopProfiles() {
       <button onClick={() => navigate("/")} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">
         Back to Dashboard
       </button>
-
-      {/* Country Filter Dropdown */}
       <select value={selectedCountry} onChange={handleFilterChange} className="border p-2 rounded mb-4">
         <option value="All">All Countries</option>
         {countries.map((country) => (
@@ -70,7 +67,6 @@ function TopProfiles() {
         ))}
       </select>
 
-      {/* Display filtered profiles */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
         {filteredProfiles.map((user) => (
           <div key={user.id} className="p-4 border rounded shadow-md text-center w-64">

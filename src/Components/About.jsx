@@ -17,7 +17,6 @@ function About() {
             Feel free to explore and find any GitHub user profile you're interested in!
           </p>
 
-          {/* Developer Info Section */}
           <div className="bg-gradient-to-r from-blue-100 to-indigo-100 p-6 rounded-lg shadow-md mt-8">
             <h2 className="text-3xl font-semibold text-center text-gray-900 mb-4">Developer Info</h2>
             <div className="flex items-center justify-center hover:scale-105 transition-transform duration-300">
@@ -42,7 +41,6 @@ function About() {
             </div>
           </div>
 
-          {/* Go Back Link */}
           <div className="flex justify-center mt-8">
             <Link
               to="/"

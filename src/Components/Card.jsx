@@ -7,14 +7,11 @@ function Card({ data }) {
     const [userDetails, setUserDetails] = useState(null);
     const [repos, setRepos] = useState([]);
 
-    // Fetch additional user details (followers, repos, bio)
     useEffect(() => {
         async function fetchDetails() {
             try {
                 const userResponse = await axios.get(`https://api.github.com/users/${data.login}`);
                 setUserDetails(userResponse.data);
-
-                // Fetch user's latest 3 repositories
                 const repoResponse = await axios.get(`https://api.github.com/users/${data.login}/repos?sort=updated&per_page=3`);
                 setRepos(repoResponse.data);
             } catch (error) {
@@ -26,23 +23,19 @@ function Card({ data }) {
 
     return (
         <div className="flex flex-col items-center p-6 rounded-lg shadow-lg bg-white w-96 hover:shadow-xl transition">
-            {/* Profile Image */}
             <img 
                 src={data.avatar_url} 
                 alt={`${data.login} profile`} 
                 className="w-24 h-24 rounded-full border border-gray-300"
             />
 
-            {/* Username */}
             <h1 className="font-bold text-xl mt-3">{data.login}</h1>
             <p className="text-gray-500">@{data.login}</p>
 
-            {/* Bio (if available) */}
             {userDetails?.bio && (
                 <p className="text-gray-700 text-sm text-center mt-2">{userDetails.bio}</p>
             )}
 
-            {/* Followers & Repositories */}
             <div className="flex gap-4 mt-3 text-sm text-gray-600">
                 <p className="flex items-center gap-1">
                     <FaUsers className="text-blue-500" /> {userDetails?.followers} Followers
@@ -52,7 +45,6 @@ function Card({ data }) {
                 </p>
             </div>
 
-            {/* Latest Repositories */}
             {repos.length > 0 && (
                 <div className="mt-4 w-full">
                     <h2 className="text-lg font-semibold mb-2">Latest Repositories</h2>
@@ -76,7 +68,6 @@ function Card({ data }) {
                 </div>
             )}
 
-            {/* GitHub Profile Button */}
             <a
                 href={data.html_url}
                 target="_blank"

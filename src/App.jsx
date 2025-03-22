@@ -17,9 +17,8 @@ function App() {
   return (
     <>
     <div
-  className="min-h-screen flex flex-col justify-between"
+  className="min-h-screen flex flex-col bg-gray-100 justify-between"
   style={{
-    backgroundImage: `url("https://static.vecteezy.com/system/resources/previews/001/227/740/original/abstract-blurred-gradient-mesh-background-vector.jpg")`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
